@@ -1,17 +1,19 @@
-// RedLightGreenLight.h
 #ifndef REDLIGHTGREENLIGHT_H
 #define REDLIGHTGREENLIGHT_H
 
 class RedLightGreenLight {
 public:
-    RedLightGreenLight(); // Constructor
-    void run(); // Starts the challenge
-    bool isCompleted(); // Checks if the challenge is completed
-    void reset(); // Resets the challenge to its initial state
+    RedLightGreenLight();
+    void run(); // Removed the default parameter for simplicity
+    bool isCompleted();
 
 private:
-    bool completed; // Keeps track of completion status
-    // Add any other member variables and methods needed for the challenge
+    void initializeLevel(int level);
+    bool processLevel(int level); // Handles the logic for a single level
+    void displayCountdown(int countdownSeconds);
+    void displayLevelOutcome(bool success, int level);
+    
+    bool completed; // Tracks if the entire challenge is completed
 };
 
 #endif // REDLIGHTGREENLIGHT_H
