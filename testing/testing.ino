@@ -62,38 +62,34 @@ void setColor(int redValue, int greenValue, int blueValue) {
 void loop() {
   // Read the potentiometer value
   int potValue = analogRead(POT_PIN);
-  
-  // Map the potentiometer value to a range from 0 to 9999 for the 7-segment display
   int displayValue = map(potValue, 0, 1023, 0, 9999);
-
-  // Display the potentiometer value on the TM1638 7-segment display
-  char valueToShow[5]; // TM1638plus library requires a char array
+  
+  // Update the display with the potentiometer value
+  char valueToShow[5];
   sprintf(valueToShow, "%04d", displayValue);
   tm1638.displayText(valueToShow);
-
-  // Display the potentiometer value on the LCD
   lcd.clear();
   lcd.setCursor(0, 0);
   lcd.print("Potentiometer:");
   lcd.setCursor(0, 1);
   lcd.print(displayValue);
 
-  // Use the potentiometer value to generate a tone
-  tone(BUZZER_PIN, map(potValue, 0, 1023, 100, 2000)); // The frequency range is arbitrary
-
   // Change the RGB LED color based on potentiometer value
-  // As an example, we'll just map the value to the red channel
-  setColor(map(potValue, 0, 1023, 0, 255), 0, 0); // Red color intensity changes with potentiometer
+  setColor(map(potValue, 0, 1023, 0, 255), 0, 0);
 
   // Debug output
   Serial.print("Potentiometer Value: ");
   Serial.println(potValue);
 
-  delay(500); // Update every half second
+  // Use the TM1638 module to check if the last button is pressed
+  byte buttons = tm1638.readButtons();
+  if (buttons & 0x80) { // Assuming the last button sets the highest bit
+    // Mute the buzzer if the last button is pressed
+    noTone(BUZZER_PIN);
+  } else {
+    // Otherwise, generate a tone based on the potentiometer value
+    tone(BUZZER_PIN, map(potValue, 0, 1023, 100, 2000));
+  }
 
-  // Turn off the tone
-  noTone(BUZZER_PIN);
-  
-  // Optionally, turn off the LED or set to a different color
-  // setColor(0, 0, 0); // Turn off the RGB LED
+  delay(500); // Update every half second
 }
