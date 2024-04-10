@@ -2,16 +2,21 @@
 #ifndef MORSECODECHALLENGE_H
 #define MORSECODECHALLENGE_H
 
+extern void updateTimerDisplay();
+
 class MorseCodeChallenge {
 public:
-    MorseCodeChallenge(); // Constructor
-    void run(); // Starts the challenge
-    bool isCompleted(); // Checks if the challenge is completed
-    void reset(); // Resets the challenge to its initial state
-
+    MorseCodeChallenge();
+    void run();
+    bool isCompleted();
 private:
-    bool completed; // Keeps track of completion status
-    // Add any other member variables and methods needed for the challenge
+    void outputMorseCode(int level);
+    bool checkButtonSequence(int level);
+    bool checkPotentiometerPosition(int level);
+    void nextLevel();
+    
+    int currentLevel = 0;
+    bool levelCompleted[3] = {false, false, false};
 };
 
 #endif // MORSECODECHALLENGE_H
