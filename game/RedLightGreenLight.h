@@ -1,6 +1,8 @@
 #ifndef REDLIGHTGREENLIGHT_H
 #define REDLIGHTGREENLIGHT_H
 
+extern void updateTimerDisplay();
+
 class RedLightGreenLight {
 public:
     RedLightGreenLight();

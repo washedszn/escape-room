@@ -2,6 +2,8 @@
 #ifndef MELODYME_H
 #define MELODYME_H
 
+extern void updateTimerDisplay();
+
 class MelodyMe {
 public:
     MelodyMe(); // Constructor

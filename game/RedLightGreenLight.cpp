@@ -6,6 +6,8 @@ RedLightGreenLight::RedLightGreenLight() : completed(false) {
 
 void RedLightGreenLight::run() {
     for (int level = 0; level < 3; ++level) {
+        // we'll update the timer here before each level
+        updateTimerDisplay();
         bool levelSuccess = false;
         Serial.begin(9600);
         lcd.clear();
@@ -14,7 +16,7 @@ void RedLightGreenLight::run() {
         delay(1000);
 
         while (!levelSuccess) {
-            displayCountdown(3); // 5-second countdown before each level
+            displayCountdown(3);
             levelSuccess = processLevel(level);
             
             displayLevelOutcome(levelSuccess, level);
@@ -49,11 +51,11 @@ void RedLightGreenLight::displayLevelOutcome(bool success, int level) {
     if (success) {
         lcd.print("Level ");
         lcd.print(level + 1);
-        lcd.print(" Success"); // Assuming \x03 is a tick mark
+        lcd.print(" Success");
     } else {
         lcd.print("Level ");
         lcd.print(level + 1);
-        lcd.print(" Failed"); // Assuming \x04 is a cross
+        lcd.print(" Failed");
     }
     delay(2000); // Allow time to read the message
 }
@@ -64,10 +66,9 @@ bool RedLightGreenLight::processLevel(int level) {
     int lightChangesPerLevel[3] = {5, 10, 15}; // Number of green light phases per level
 
     for (int currentChange = 0; currentChange < lightChangesPerLevel[level]; ++currentChange) {
+        
         // Adjust red light duration randomly within a range of +-500ms
-        int redLightDuration = baseLightDurations[level] + random(-500, 501); // random(min, max) is exclusive on the max
-        // Ensure red light duration does not go below a minimum threshold
-        redLightDuration = max(redLightDuration, 500); // Prevent red light duration from being too short
+        int redLightDuration = baseLightDurations[level] + random(-500, 501);
         
         // Green light phase
         digitalWrite(GREEN_LED_PIN, HIGH);

@@ -1,17 +1,22 @@
-// PotentiometerLock.h
 #ifndef POTENTIOMETERLOCK_H
 #define POTENTIOMETERLOCK_H
 
+extern void updateTimerDisplay();
+
 class PotentiometerLock {
 public:
-    PotentiometerLock(); // Constructor
-    void run(); // Starts the challenge
-    bool isCompleted(); // Checks if the challenge is completed
-    void reset(); // Resets the challenge to its initial state
+    PotentiometerLock();
+    void run();
+    bool isCompleted();
 
 private:
-    bool completed; // Keeps track of completion status
-    // Add any other member variables and methods needed for the challenge
+    void createLockCharacters();
+    void checkTM1638ButtonPress();
+    void updateDisplay();
+    void checkCombination();
+    void cycleLocks();
+    bool completed;
+    bool lockState[3]; // Tracks the locked/unlocked state of each lock
 };
 
 #endif // POTENTIOMETERLOCK_H
