@@ -65,20 +65,24 @@ void updateTimerDisplay() {
 }
 void runChallengesSequentially() {
   // Run each challenge in order
-  // lcd.clear();
-  // lcd.print("Potentiometer Lock");
-  // potentiometerLock.run();
+  lcd.clear();
+  lcd.print("Potentiometer Lock");
+  delay(1000);
+  potentiometerLock.run();
 
-  // lcd.clear();
-  // lcd.print("Red Light Green Light");
-  // redLightGreenLight.run();
+  lcd.clear();
+  lcd.print("Red Light Green Light");
+  delay(1000);
+  redLightGreenLight.run();
 
   lcd.clear();
   lcd.print("Morse Code Challenge");
+  delay(1000);
   morseCodeChallenge.run();
 
   lcd.clear();
   lcd.print("Melody Me");
+  delay(1000);
   melodyMe.run();
 
   // After all challenges, perhaps show a completion message or loop back

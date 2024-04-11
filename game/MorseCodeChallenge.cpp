@@ -15,7 +15,7 @@ void MorseCodeChallenge::run() {
             delay(1000); // Give the player a moment to read the message
             Serial.begin(9600);
             Serial.print("starting");
-            // outputMorseCode(currentLevel); // Play Morse code for the current level
+            outputMorseCode(currentLevel); // Play Morse code for the current level
             
             bool buttonsCorrect, potCorrect;
             do {
